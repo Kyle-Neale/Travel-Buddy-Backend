@@ -7,6 +7,9 @@ class User < ApplicationRecord
   has_many :friends, through: :friendships
   has_many :places, through: :spots
 
+  has_secure_password
 
-  # has_secure_password
+  def method_name
+
+  end
 end
