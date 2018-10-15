@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_12_141944) do
+ActiveRecord::Schema.define(version: 2018_10_15_141731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,8 +53,19 @@ ActiveRecord::Schema.define(version: 2018_10_12_141944) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id"
+    t.boolean "unread"
+    t.string "message"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "places", force: :cascade do |t|
     t.string "name"
+    t.string "address"
+    t.string "phone_number"
+    t.integer "place_id"
     t.float "lat"
     t.float "lng"
     t.datetime "created_at", null: false
@@ -62,24 +73,19 @@ ActiveRecord::Schema.define(version: 2018_10_12_141944) do
   end
 
   create_table "spots", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "phone_number"
+    t.string "spot_type"
+    t.string "source"
+    t.integer "user_id"
     t.integer "place_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_spots", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "spot_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "users", force: :cascade do |t|
-    t.string "first_name"
-    t.string "last_name"
+    t.string "full_name"
+    t.string "username"
+    t.string "email"
+    t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
