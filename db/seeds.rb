@@ -1,13 +1,10 @@
-# eric = User.create(first_name: 'Eric', last_name: 'Kim')
-# kyle = User.create(first_name: 'Kyle', last_name: 'Neale')
-# my_first_friend = Friendship.create(user: eric, friend: kyle)
-#
-# dumbo = Place.create(name: "Dumbo")
-# we_work = Spot.create(place: dumbo, name: "WeWork", address: "81st Prospect Street", phone_number: 6464259124)
-# we_work2 = Spot.create(place: dumbo, name: "WeWork2", address: "81st Prospect Street", phone_number: 6464259124)
-#
-# UserSpot.create(user: eric, spot: we_work)
-# UserSpot.create(user: eric, spot: we_work2)
-#
-#
-# Comment.create(text: 'I love my job! It doesn\'t suck.', user: eric, spot: we_work)
+require 'faker'
+
+10.times do
+  User.create(full_name: Faker::Name.unique.name, password_digest: Faker::Internet.password, email: Faker::Internet.email)
+end
+
+User.all.each do |user|
+  user.update(username: Faker::Internet.username(user.full_name))
+  user.save
+end
