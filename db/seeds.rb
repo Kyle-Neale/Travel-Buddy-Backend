@@ -11,3 +11,7 @@ User.all.each do |user|
   )
   user.save
 end
+
+11.times do
+  Friendship.create(user: User.all.sample, friend: User.all.sample, accepted: true)
+end
