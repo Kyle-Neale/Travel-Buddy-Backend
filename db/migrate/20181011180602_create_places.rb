@@ -4,7 +4,9 @@ class CreatePlaces < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :address
       t.string :phone_number
-      t.integer :place_id
+      t.integer :google_id
+      t.string :website
+      t.string :description
       t.float :lat
       t.float :lng
 

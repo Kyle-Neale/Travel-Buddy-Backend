@@ -64,8 +64,10 @@ ActiveRecord::Schema.define(version: 2018_10_15_141731) do
   create_table "places", force: :cascade do |t|
     t.string "name"
     t.string "address"
+    t.string "website"
+    t.string "description"
     t.string "phone_number"
-    t.integer "place_id"
+    t.integer "google_id"
     t.float "lat"
     t.float "lng"
     t.datetime "created_at", null: false

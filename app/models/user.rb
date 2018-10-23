@@ -6,7 +6,10 @@ class User < ApplicationRecord
   has_many :spots
   has_many :friends, through: :friendships
   has_many :places, through: :spots
+
   has_secure_password
+  
+  validates :username, uniqueness: true
 
   def self.unfriended(current_user)
     self.all.select { |u|
@@ -43,7 +46,7 @@ class User < ApplicationRecord
   end
 
   def accept_request(friend)
-    Friendship.create(user_id: self.id, friend_id: friend.id, pending: false, accepted: true) # create reciprocal friendship
+    Friendship.create(user_id: self.id, friend_id: friend.id, pending: false, accepted: true)
     request = Friendship.find_by(user_id: friend.id, friend_id: self.id)
     request.update(pending: false, accepted: true)
   end

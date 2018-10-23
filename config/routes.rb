@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   resources :comments, only: [:create, :destroy]
   resources :spots, only: [:index, :create, :update, :destroy]
   resources :notifications, only: [:index, :update]
+
+  post "/login", to: "sessions#login"
+  post "current_user", to: "session#persist"
+
 end
