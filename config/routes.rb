@@ -8,6 +8,6 @@ Rails.application.routes.draw do
   resources :notifications, only: [:index, :update]
 
   post "/login", to: "sessions#login"
-  post "current_user", to: "session#persist"
+  get "/persist", to: "sessions#persist"
 
 end

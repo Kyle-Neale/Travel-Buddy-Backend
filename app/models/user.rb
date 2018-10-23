@@ -8,8 +8,6 @@ class User < ApplicationRecord
   has_many :places, through: :spots
 
   has_secure_password
-  
-  validates :username, uniqueness: true
 
   def self.unfriended(current_user)
     self.all.select { |u|

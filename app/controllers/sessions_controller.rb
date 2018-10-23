@@ -13,10 +13,20 @@ class SessionsController < ApplicationController
   end
 
   def persist
-    if user
-      render json: user
-    else
-      render json: {error: "User not found or token expired"}, status: 401
+    token = request.headers["Authorization"]
+    begin
+      payload = JWT.decode(token, "super secret key", true)
+    rescue JWT::DecodeError
+      nil
+    end
+    if payload
+      id = payload[0]["user_id"]
+      @user = User.find(id)
+      if @user
+        render json: @user
+      else
+        render json: {error: "User not found or token expired"}, status: 401
+      end
     end
   end
 

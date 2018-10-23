@@ -1,8 +1,8 @@
 require 'faker'
 
-User.create(full_name: "Kyle Neale", password: "123123", username: "kyleneale", email: "kyle@gmail.com")
+# User.create(full_name: "Kyle Neale", password: "123123", username: "kyleneale", email: "kyle@gmail.com")
 
-10.times do
+11.times do
   User.create(full_name: Faker::Name.unique.name, password: Faker::Internet.password)
 end
 

@@ -2,12 +2,23 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
 
   def index
-    users = User.all
-    render json: users
+    @all = User.all
+    @unfriended = User.unfriended(user)
+    @friends = user.accepted_friends
+    @requested_friends = user.requested_friends
+    @pending_friends = user.pending_friends
+    render json:
+      {
+        all: @all,
+        unfriended: @unfriended,
+        pending_friends: @pending_friends,
+        accepted_friends: @friends,
+        requested_friends: @requested_friends
+      }
   end
 
   def show
-    render json: set_user
+    render json: user
   end
 
   def create
