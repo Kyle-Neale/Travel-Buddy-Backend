@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    byebug
      user = User.new(user_params)
      if user.save
        token = JWT.encode( {user_id: user.id}, "super secret key")
