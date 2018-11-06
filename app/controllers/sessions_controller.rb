@@ -3,7 +3,7 @@ class SessionsController < ApplicationController
   def login
     @user = User.find_by(username: user_params[:username])
     if @user && @user.authenticate(user_params[:password])
-      token = JWT.encode( {user_id: @user.id}, "super secret key")
+      token = JWT.encode({user_id: @user.id}, "super secret key")
       render json: {
         user: { user: UserSerializer.new(@user), token: token }
       }
@@ -13,20 +13,10 @@ class SessionsController < ApplicationController
   end
 
   def persist
-    token = request.headers["Authorization"]
-    begin
-      payload = JWT.decode(token, "super secret key", true)
-    rescue JWT::DecodeError
-      nil
-    end
-    if payload
-      id = payload[0]["user_id"]
-      @user = User.find(id)
-      if @user
-        render json: @user
-      else
-        render json: {error: "User not found or token expired"}, status: 401
-      end
+    if user
+      render json: user
+    else
+      render json: {error: "User not found or token expired"}, status: 401
     end
   end
 

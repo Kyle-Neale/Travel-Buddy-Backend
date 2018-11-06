@@ -10,11 +10,11 @@ class User < ApplicationRecord
   has_secure_password
 
   def self.unfriended(current_user)
-    self.all.select { |u|
+    self.all.select do |u|
       u != current_user &&
       !current_user.friends.include?(u) &&
       !u.friends.include?(current_user)
-    }
+    end
   end
 
   def accepted_friends
